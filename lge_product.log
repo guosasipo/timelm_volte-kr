@@ -1,0 +1,131 @@
+[02.527] Log: lge_hw_smem_id1_type_ptr->cable_type:  12
+[02.528] Log: lge_hw_smem_id1_type_ptr->qem: 0
+[02.528] Log: lge_init_write_default_qcn() flag_fd:0
+[02.528] Log: DEFAULT QCN have been activated
+[03.531] Log: -------------   mcfg_ext_get_rfs_params   -------------------------
+[03.531] Log: rfs_params_ver : 0
+[03.531] Log: discover_timer_timeout : 10000
+[03.531] Log: retry_mbn_loading : 2
+[03.531] Log: retry_remote_inaccessible : 3
+[03.531] Log: rfs_path_discover : /readonly/firmware/image/modem_pr/mcfg/configs
+[03.531] Log: oem_hw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_hw/oem_hw.txt
+[03.531] Log: oem_sw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_sw/oem_sw_kr.txt
+[03.531] Log: ----------------------------------------------------------------------
+[03.531] Log: get_operator_rfs_info current_operator:  72
+[03.531] Log: pcas operator: LGU
+[03.531] Log: get_operator_rfs_info current_operator:  72
+[03.531] Log: pcas operator: LGU
+[03.531] Log: don't need to update oem_sw_path_info!!! 
+[03.531] Log: lge_update_mcfg_rfs_param  : retry counter = 0 
+[02.484] Log: lge_init_task
+[02.485] Log: lge_hw_smem_id0_type_ptr->sku_rev : 0
+[02.485] Log: lge_hw_smem_id0_type_ptr->hw_rev :  12
+[02.485] Log: lge_hw_smem_id0_type_ptr->sub_rev : 1
+[02.485] Log: lge_hw_smem_id0_type_ptr->ant_rev:  0
+[02.485] Log: lge_hw_smem_id0_type_ptr->ntcode: "1","FFF,FFF,FFFFFFFF,FFFFFFFF,63"
+[02.485] Log: lge_hw_smem_id0_type_ptr->sim_num: 1
+[02.485] Log: lge_hw_smem_id0_type_ptr->svn_val: 0
+[02.485] Log: lge_hw_smem_id0_type_ptr->flag_gpio: 0
+[02.485] Log: lge_hw_smem_id1_type_ptr->cable_type:  12
+[02.485] Log: lge_hw_smem_id1_type_ptr->qem: 0
+[02.485] Log: lge_init_write_default_qcn() flag_fd:0
+[02.485] Log: DEFAULT QCN have been activated
+[03.488] Log: -------------   mcfg_ext_get_rfs_params   -------------------------
+[03.488] Log: rfs_params_ver : 0
+[03.488] Log: discover_timer_timeout : 10000
+[03.488] Log: retry_mbn_loading : 2
+[03.488] Log: retry_remote_inaccessible : 3
+[03.488] Log: rfs_path_discover : /readonly/firmware/image/modem_pr/mcfg/configs
+[03.488] Log: oem_hw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_hw/oem_hw.txt
+[03.488] Log: oem_sw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_sw/oem_sw_kr.txt
+[03.488] Log: ----------------------------------------------------------------------
+[03.488] Log: get_operator_rfs_info current_operator:  72
+[03.488] Log: pcas operator: LGU
+[03.488] Log: get_operator_rfs_info current_operator:  72
+[03.488] Log: pcas operator: LGU
+[03.488] Log: don't need to update oem_sw_path_info!!! 
+[03.488] Log: lge_update_mcfg_rfs_param  : retry counter = 0 
+[02.551] Log: lge_init_task
+[02.551] Log: lge_hw_smem_id0_type_ptr->sku_rev : 0
+[02.551] Log: lge_hw_smem_id0_type_ptr->hw_rev :  12
+[02.551] Log: lge_hw_smem_id0_type_ptr->sub_rev : 1
+[02.551] Log: lge_hw_smem_id0_type_ptr->ant_rev:  0
+[02.551] Log: lge_hw_smem_id0_type_ptr->ntcode: "1","FFF,FFF,FFFFFFFF,FFFFFFFF,63"
+[02.551] Log: lge_hw_smem_id0_type_ptr->sim_num: 1
+[02.551] Log: lge_hw_smem_id0_type_ptr->svn_val: 0
+[02.551] Log: lge_hw_smem_id0_type_ptr->flag_gpio: 0
+[02.551] Log: lge_hw_smem_id1_type_ptr->cable_type:  12
+[02.551] Log: lge_hw_smem_id1_type_ptr->qem: 0
+[02.552] Log: lge_init_write_default_qcn() flag_fd:0
+[02.552] Log: DEFAULT QCN have been activated
+[03.555] Log: -------------   mcfg_ext_get_rfs_params   -------------------------
+[03.555] Log: rfs_params_ver : 0
+[03.555] Log: discover_timer_timeout : 10000
+[03.555] Log: retry_mbn_loading : 2
+[03.555] Log: retry_remote_inaccessible : 3
+[03.555] Log: rfs_path_discover : /readonly/firmware/image/modem_pr/mcfg/configs
+[03.555] Log: oem_hw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_hw/oem_hw.txt
+[03.555] Log: oem_sw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_sw/oem_sw_kr.txt
+[03.555] Log: ----------------------------------------------------------------------
+[03.555] Log: get_operator_rfs_info current_operator:  72
+[03.555] Log: pcas operator: LGU
+[03.555] Log: get_operator_rfs_info current_operator:  72
+[03.555] Log: pcas operator: LGU
+[03.555] Log: don't need to update oem_sw_path_info!!! 
+[03.555] Log: lge_update_mcfg_rfs_param  : retry counter = 0 
+[02.535] Log: lge_init_task
+[02.535] Log: lge_hw_smem_id0_type_ptr->sku_rev : 0
+[02.535] Log: lge_hw_smem_id0_type_ptr->hw_rev :  12
+[02.535] Log: lge_hw_smem_id0_type_ptr->sub_rev : 1
+[02.535] Log: lge_hw_smem_id0_type_ptr->ant_rev:  0
+[02.535] Log: lge_hw_smem_id0_type_ptr->ntcode: "1","FFF,FFF,FFFFFFFF,FFFFFFFF,63"
+[02.535] Log: lge_hw_smem_id0_type_ptr->sim_num: 1
+[02.535] Log: lge_hw_smem_id0_type_ptr->svn_val: 0
+[02.535] Log: lge_hw_smem_id0_type_ptr->flag_gpio: 0
+[02.535] Log: lge_hw_smem_id1_type_ptr->cable_type:  12
+[02.535] Log: lge_hw_smem_id1_type_ptr->qem: 0
+[02.536] Log: lge_init_write_default_qcn() flag_fd:0
+[02.536] Log: DEFAULT QCN have been activated
+[03.538] Log: -------------   mcfg_ext_get_rfs_params   -------------------------
+[03.538] Log: rfs_params_ver : 0
+[03.539] Log: discover_timer_timeout : 10000
+[03.539] Log: retry_mbn_loading : 2
+[03.539] Log: retry_remote_inaccessible : 3
+[03.539] Log: rfs_path_discover : /readonly/firmware/image/modem_pr/mcfg/configs
+[03.539] Log: oem_hw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_hw/oem_hw.txt
+[03.539] Log: oem_sw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_sw/oem_sw_kr.txt
+[03.539] Log: ----------------------------------------------------------------------
+[03.539] Log: get_operator_rfs_info current_operator:  72
+[03.539] Log: pcas operator: LGU
+[03.539] Log: get_operator_rfs_info current_operator:  72
+[03.539] Log: pcas operator: LGU
+[03.539] Log: don't need to update oem_sw_path_info!!! 
+[03.539] Log: lge_update_mcfg_rfs_param  : retry counter = 0 
+[02.522] Log: lge_init_task
+[02.522] Log: lge_hw_smem_id0_type_ptr->sku_rev : 0
+[02.522] Log: lge_hw_smem_id0_type_ptr->hw_rev :  12
+[02.522] Log: lge_hw_smem_id0_type_ptr->sub_rev : 1
+[02.522] Log: lge_hw_smem_id0_type_ptr->ant_rev:  0
+[02.522] Log: lge_hw_smem_id0_type_ptr->ntcode: "1","FFF,FFF,FFFFFFFF,FFFFFFFF,63"
+[02.523] Log: lge_hw_smem_id0_type_ptr->sim_num: 1
+[02.523] Log: lge_hw_smem_id0_type_ptr->svn_val: 0
+[02.523] Log: lge_hw_smem_id0_type_ptr->flag_gpio: 0
+[02.523] Log: lge_hw_smem_id1_type_ptr->cable_type:  12
+[02.523] Log: lge_hw_smem_id1_type_ptr->qem: 0
+[02.523] Log: lge_init_write_default_qcn() flag_fd:0
+[02.523] Log: DEFAULT QCN have been activated
+[03.526] Log: -------------   mcfg_ext_get_rfs_params   -------------------------
+[03.526] Log: rfs_params_ver : 0
+[03.526] Log: discover_timer_timeout : 10000
+[03.526] Log: retry_mbn_loading : 2
+[03.526] Log: retry_remote_inaccessible : 3
+[03.526] Log: rfs_path_discover : /readonly/firmware/image/modem_pr/mcfg/configs
+[03.526] Log: oem_hw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_hw/oem_hw.txt
+[03.526] Log: oem_sw_path_info : /readonly/firmware/image/modem_pr/mcfg/configs/mcfg_sw/oem_sw_kr.txt
+[03.526] Log: ----------------------------------------------------------------------
+[03.526] Log: get_operator_rfs_info current_operator:  72
+[03.526] Log: pcas operator: LGU
+[03.526] Log: get_operator_rfs_info current_operator:  72
+[03.526] Log: pcas operator: LGU
+[03.526] Log: don't need to update oem_sw_path_info!!! 
+[03.526] Log: lge_update_mcfg_rfs_param  : retry counter = 0 

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<policy name            = "generic"
+        enabled         = "true"
+        schema_ver      = "1"
+        policy_ver      = "2019.1217.62"
+>
+<!--
+   [Warning]
+     Please do not write korean comments. it will be occurred compile error as blow.
+     g3_lgu_g3_lgu.c:7705: error: expected '}' before numeric constant
+   -->
+
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!--                             Initialize                                     -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+  <initial>
+    <actions>
+      <!-- These are the HOME MCCs -->
+      <mcc_list name="home_mcc"> 450 </mcc_list>
+
+      <plmn_list name="ca_combo_networks">
+       450-05 450-06 450-10 450-08 450-02
+      </plmn_list>
+
+      <!-- KT 5G roaming NW partner -->
+      <plmn_list name="5G_roaming_plmns">
+       460-01 460-06 460-09 228-01 228-02 222-01 244-05 244-21
+      </plmn_list>
+
+      <!-- Boolean: Is UE in home ? -->
+      <boolean_define name="home" initial="false" />
+      <boolean_define name = "already_camped_home" initial = "false" />
+      <boolean_define name = "already_camped_roam" initial = "false" />
+      
+      <!-- RF Bands with GWL/NR5G enabled -->
+      <rf_band_list name = "rf_bands_hw">
+        <!-- SYS_SBAND_WCDMA_VI_800 = 27, Refer: sys_sband_e_type in sys.h -->
+        <gw_bands base = "hardware">
+          <exclude> 27 </exclude>
+        </gw_bands>
+        <lte_bands base = "hardware" />
+        <tds_bands base = "none" />
+        <nr5g_sa_bands base = "hardware" />
+        <nr5g_nsa_bands base = "hardware" />
+      </rf_band_list>
+ 
+      <!-- KT HOME RF Band enable specifically -->
+      <rf_band_list name = "KT_HOME_BAND">
+        <!-- SYS_SBAND_WCDMA_I_IMT_2000 = 22, Refer: sys_sband_e_type in sys.h -->
+        <gw_bands base = "none">
+          <include> 22 </include>
+        </gw_bands>
+
+        <!-- 
+        LTE Band: 1, 3, 8 are mapped to Band Bits: 0, 2, 7 respectively.
+        Refer: sys_sband_lte_e_type in sys.h
+        -->
+        <lte_bands base = "none">
+          <include> 0 2 4 6 7 </include>
+        </lte_bands>
+        <tds_bands base = "none" />
+        <!-- SYS_SBAND_NR5G_BAND = 78, Refer: sys_sband_nr5g_e_type in sys.h -->
+        <nr5g_sa_bands base = "none">
+          <include> 77 </include>
+        </nr5g_sa_bands>
+        <nr5g_nsa_bands base = "none">
+          <include> 77 </include>
+        </nr5g_nsa_bands>
+      </rf_band_list>
+
+      <!-- Define the OOS timer with a 15 minute interval -->
+      <define_fullrat_config>
+        <actions>
+          <rat_capability base="none">
+            <include> G W L 5G </include>
+          </rat_capability>
+          <rf_bands list = "rf_bands_hw" />
+          <svc_mode> FULL_RAT </svc_mode>
+        </actions>
+      </define_fullrat_config>
+
+      <!-- On first boot, initial RAT capability as GSM, WCDMA and LTE, NR5G -->
+      <rat_capability_if base = "none" >
+        <include> G W L 5G </include>
+      </rat_capability_if>
+
+      <!-- Define initial RF bands as GWL/NR5G bands -->
+      <rf_bands list = "rf_bands_hw" />
+
+      <!-- Define initial UE mode as NORMAL -->
+      <ue_mode> NORMAL </ue_mode>
+
+      <feature> normal </feature>
+
+    </actions>
+  </initial>
+ 
+  <!--  LPM > Online(if we are in LPM, set Full RAT/Band with FULL_RAT svc_mode)-->
+
+  <if>
+    <phone_operating_mode> SLEEP </phone_operating_mode>
+    <then>
+      <rat_capability base = "none" >
+        <include> G W L 5G </include>
+      </rat_capability>
+      <rf_bands list = "rf_bands_hw" />
+      <svc_mode> FULL_RAT </svc_mode>
+      <boolean_set name = "already_camped_roam" value = "false" />
+      <boolean_set name = "already_camped_home" value = "false" />
+    </then>
+  </if>
+
+  <!-- Wait here if we don't have location or we are not ONLINE &&         -->
+  <!-- if we have service, set Full svc_mode and update home boolean       -->
+
+  <if>
+    <any_of>
+      <not> <phone_operating_mode> ONLINE </phone_operating_mode> </not>
+      <not> <have_location /> </not>
+    </any_of>
+    <then>
+      <stop />
+    </then>
+  </if>
+
+  <!-- Beyond this point, the device is ONLINE and has a location. -->
+  <boolean_set name="home">
+    <location_mcc_in list="home_mcc" />
+  </boolean_set>
+
+  <!-- Check Network Capability Home or Roam -->
+  <if>
+    <all_of>
+      <boolean_test name="home" />
+      <not><boolean_test name = "already_camped_home" /></not>
+    </all_of>
+    <then>
+      <!-- HOME Case -->
+      <boolean_set name = "already_camped_home" value = "true" />
+      <boolean_set name = "already_camped_roam" value = "false" />
+      <!-- <check_and_init_in_home />  -->  <!-- Restore home value ( FGI ./etc) -->
+    </then>
+  </if>
+
+  <if>
+    <all_of>
+      <not><boolean_test name="home" /></not>
+      <not><boolean_test name = "already_camped_roam" /></not>
+    </all_of>
+  <then>
+    <!-- ROAM Case -->
+    <boolean_set name = "already_camped_home" value = "false" />
+    <boolean_set name = "already_camped_roam" value = "true" />
+    <!-- <check_and_init_in_roam /> -->     <!-- Set roaming value ( FGI ./etc) -->
+  </then>
+  </if>
+
+  <!-- CA combo Enable / Disable  -->
+  <if>
+    <have_serving_system />
+    <then>
+      <if>
+        <serving_plmn_in list="ca_combo_networks" />
+        <then> 
+          <ca_band_combos string="3AA-0;8AA-0;1AA-0;3AA-3A-0;3AA-3A-1;3AA-3A-2;3CA-0;8AA-3A-0;8AA-3A-1;8AA-3A-2;8AA-3A-3;8A-3AA-0;8A-3AA-1;8A-3AA-2;8A-3AA-3;3AA-1A-0;3AA-1A-1;3A-1AA-0;3A-1AA-1;8AA-1A-0;8AA-1A-1;8AA-1A-2;8A-1AA-0;8A-1AA-1;8A-1AA-2;1AA-1A-0;1CA-0;1CA-1;8AA-3A-3A-0;8AA-3A-3A-1;8A-3AA-3A-0;8A-3AA-3A-1;8AA-3C-0;8A-3CA-0;8AA-3A-1A-0;8AA-3A-1A-1;8AA-3A-1A-2;8AA-3A-1A-3;8A-3AA-1A-0;8A-3AA-1A-1;8A-3AA-1A-2;8A-3AA-1A-3;8A-3A-1AA-0;8A-3A-1AA-1;8A-3A-1AA-2;8A-3A-1AA-3;3AA-3A-1A-0;3A-3A-1AA-0;3AA-1A-1A-0;3A-1AA-1A-0;3CA-1A-0;3C-1AA-0;8AA-3A-3A-1A-0;8A-3AA-3A-1A-0;8A-3A-3A-1AA-0;8AA-3C-1A-0;8A-3CA-1A-0;8A-3C-1AA-0;3CA-1A-1A-0;3C-1AA-1A-0;3CC-0;8AA-3AA-0;8AA-3AA-1;8AA-3AA-2;8AA-3AA-3;3AA-1AA-0;3AA-1AA-1;8AA-3CA-0;8A-3CC-0;8AA-3AA-1A-0;8AA-3AA-1A-1;8AA-3AA-1A-2;8AA-3AA-1A-3;8AA-3A-1AA-0;8AA-3A-1AA-1;8AA-3A-1AA-2;8AA-3A-1AA-3;8A-3AA-1AA-0;8A-3AA-1AA-1;8A-3AA-1AA-2;8A-3AA-1AA-3;3CC-1A-0;3CA-1AA-0;8AA-3CA-1A-0;8AA-3C-1AA-0;8A-3CC-1A-0;8A-3CA-1AA-0;8AA-1AA-0;8AA-1AA-1;8AA-1AA-2;" />   <!-- Enable CA --> 
+        </then>
+        <else>
+         <ca_band_combos string="18AA-0;" />  <!-- Disable CA -->
+        </else>
+      </if>
+    </then>
+  </if>
+  
+  <!-- Main -->
+  <select>
+    <case> 
+      <!-- HOME Case , Auto(GWL5G) -->
+      <all_of>
+        <boolean_test name="home" />
+        <user_mode_pref_contains> 5G L W G </user_mode_pref_contains>
+      </all_of>
+      <then>
+        <rat_capability base = "none" >
+          <include> L W 5G </include>
+        </rat_capability>
+        <rf_bands list = "KT_HOME_BAND" />
+        <svc_mode> FULL </svc_mode>
+      </then>
+    </case>
+
+    <case> 
+      <!-- HOME Case , Auto(GWL) -->
+      <all_of>
+        <boolean_test name="home" />
+        <user_mode_pref_contains> L W G </user_mode_pref_contains>
+      </all_of>
+      <then>
+        <rat_capability base = "none" >
+          <include> L W </include>
+        </rat_capability>
+        <rf_bands list = "KT_HOME_BAND" />
+        <svc_mode> FULL </svc_mode>
+      </then>
+    </case>
+
+    <case>
+      <!-- 5G ROAM Case , Auto(GWL5G) -->
+      <all_of>
+        <not><boolean_test name="home" /></not>
+        <serving_plmn_in list="5G_roaming_plmns" />
+        <user_mode_pref_contains> 5G L W </user_mode_pref_contains>
+      </all_of>
+      <then>
+        <rf_bands list = "rf_bands_hw" />
+        <svc_mode> FULL </svc_mode>
+		<!--
+        <if>
+          <cond> <lte_roaming_mode> LTE_ROAM_DISABLE </lte_roaming_mode> </cond>
+          <then>
+            <rat_capability base = "none" >
+              <include> W G </include>
+            </rat_capability>
+          </then>
+        <else>
+          <rat_capability base = "none" >
+            <include> G W L 5G </include>
+          </rat_capability>
+        </else>
+        </if>
+		-->
+      </then>
+    </case>
+
+    <case>
+      <!-- ROAM Case -->
+      <all_of>
+        <not><boolean_test name="home" /></not>
+        <user_mode_pref_contains> L W </user_mode_pref_contains>
+      </all_of>
+      <then>
+        <rf_bands list = "rf_bands_hw" />
+        <svc_mode> FULL </svc_mode>
+		<!--
+        <if>
+          <cond> <lte_roaming_mode> LTE_ROAM_DISABLE </lte_roaming_mode> </cond>
+          <then>
+            <rat_capability base = "none" >
+              <include> W G </include>
+            </rat_capability>
+           </then>
+         <else>
+           <rat_capability base = "none" >
+             <include> G W L </include>
+           </rat_capability> 
+         </else>
+         </if>
+		 -->
+       </then>
+     </case>
+
+     <case>
+       <!-- Otherwise Case -->
+       <true />
+       <then>
+         <rat_capability base = "none" >
+           <include> G W L </include>
+         </rat_capability>
+         <rf_bands list = "rf_bands_hw" />
+         <svc_mode> FULL </svc_mode>
+       </then>
+     </case>
+   </select>
+ 
+</policy>
+
